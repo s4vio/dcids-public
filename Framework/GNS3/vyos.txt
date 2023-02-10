@@ -1,0 +1,59 @@
+-- Vyos Border-Router --
+
+vyos@Border-Router# set system host-name Border-Router
+vyos@Border-Router# set system time-zone Brazil/East
+
+vyos@Border-Router# set interfaces ethernet eth0 address dhcp
+vyos@Border-Router# set interfaces ethernet eth1 address 192.168.100.1/25
+
+vyos@Border-Router# set protocols static route 0.0.0.0/0 next-hop 192.168.122.1
+vyos@Border-Router# set protocols static route 192.168.100.0/24 next-hop 192.168.100.2
+vyos@Border-Router# set protocols static route 192.168.200.0/21 next-hop 192.168.100.2
+
+vyos@Border-Router# set nat source rule 100 outbound-interface 'eth0'
+vyos@Border-Router# set nat source rule 100 source address '192.168.0.0/16'
+vyos@Border-Router# set nat source rule 100 translation address 'masquerade'
+
+
+-- Vyos Router --
+
+vyos@Router# set system host-name Router
+vyos@Router# set system time-zone Brazil/East
+
+vyos@Router# set interfaces ethernet eth0 address 192.168.200.2/24
+
+vyos@Router# set protocols static route 0.0.0.0/0 next-hop 192.168.200.1
+vyos@Router# set protocols static route 192.168.122.1/32 next-hop 192.168.200.2
+
+vyos@Router# set interfaces ethernet eth1 vif 201 address '192.168.201.1/24'
+vyos@Router# set interfaces ethernet eth1 vif 201 description 'VLAN 201 (SOC)'
+
+vyos@Router# set interfaces ethernet eth2 vif 202 address '192.168.202.1/24'
+vyos@Router# set interfaces ethernet eth2 vif 202 description 'VLAN 202 (Datacenter)'
+
+vyos@Router# set interfaces ethernet eth2 vif 203 address '192.168.203.1/24'
+vyos@Router# set interfaces ethernet eth2 vif 203 description 'VLAN 203 (Enterprise 1)'
+
+vyos@Router# set interfaces ethernet eth2 vif 204 address '192.168.204.1/24'
+vyos@Router# set interfaces ethernet eth2 vif 204 description 'VLAN 204 (Enterprise 2)'
+
+vyos@Router# set interfaces ethernet eth3 address dhcp
+
+vyos@Router# set nat source rule 100 outbound-interface 'eth0'
+vyos@Router# set nat source rule 100 source address '192.168.122.1/32'
+vyos@Router# set nat source rule 100 translation address 'masquerade'
+
+
+-- Pfsense --
+
+- Configure NAT for Internet (Outbound)
+- Create gateway and static routes
+- Configure DNS server
+- Configure rules for each zones
+
+
+
+# Clear snort rules
+
+pfctl -t snort2c -T flush
+pfctl -t snort2c -T delete 
