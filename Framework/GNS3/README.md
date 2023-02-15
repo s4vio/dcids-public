@@ -46,12 +46,12 @@
 
 ### VLANS
 
-- DMZ (Red)              Vlan 100     (192.168.100.128/25)
-- SOC (Gray)                 Vlan 201     (192.168.201.0/24)
-- Datacenter (Blue)           Vlan 202     (192.168.202.0/24)
-- Enterprise 1 (Orange)      Vlan 203     (192.168.203.0/24)
-- Enterprise 2 (Green)        Vlan 204     (192.168.204.0/24)
-- IT Department (Yellow)     Vlan 205     (192.168.205.0/24)
+- Vlan 100 (Red): DMZ 1
+- Vlan 201 (Gray): SOC
+- Vlan 202 (Blue): Datacenter
+- Vlan 203 (Orange): Enterprise 1
+- Vlan 204 (Green): Enterprise 2
+- Vlan 205 (Yellow): IT Department
 
 
 ### IP ADDRESS
