@@ -1,0 +1,6 @@
+---
+## Default Logstash configuration from Logstash base image.
+# https://www.elastic.co/guide/en/logstash/current/docker-config.html
+
+http.host: "0.0.0.0"
+monitoring.elasticsearch.hosts: [ "http://192.168.201.2:9200" ]
